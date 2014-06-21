@@ -1,15 +1,32 @@
-## Put comments here that give an overall description of what your
-## functions do
+#Code for  programming assignment 2 (rprog-004). Code based on example 
+#makeVector and cachemean functions
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+#Creates a matrix object with a list of 4 functions 
+makeCacheMatrix <- function(m = matrix()) {
+  solved <- NULL                          
+  set <- function(a) {#Set "method" globally gets data and nullifies inverse
+    m <<- a
+    solved <<- NULL
+  }
+  get <- function() m #Get "method" returns matrix contents
+  setsolved <- function(solve) solved <<- solve  #Globally sets inverse
+  getsolved <- function() solved                #Shows inverse
+  list(set = set, get = get,
+       setsolved = setsolved,
+       getsolved = getsolved)
 }
 
+#A fuction to cache or retrieve cached inverse matrix
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(m, ...) {
+  solved <- m$getsolved()
+  if(!is.null(solved)) {        #Test cache existence and retrieving it
+    message("retrieving cache")
+    return(solved)
+  }
+  data <- m$get()
+  solved <- solve(data)         #Creates new inverse matrix
+  m$setsolved(solved)           
+  solved
 }
+

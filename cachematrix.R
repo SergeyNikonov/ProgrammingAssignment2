@@ -15,9 +15,9 @@ makeCacheMatrix <- function(m = matrix()) {
        setsolved = setsolved,
        getsolved = getsolved)
 }
-
+  
 #A fuction to cache or retrieve cached inverse matrix
-
+  
 cacheSolve <- function(m, ...) {
   solved <- m$getsolved()
   if(!is.null(solved)) {        #Test cache existence and retrieving it
